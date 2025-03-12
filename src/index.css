@@ -15,8 +15,8 @@ header{
   padding: 2em;
   width: 100%;
   position: fixed;
-  background: rgba(255, 255, 255, 0);
-  filter: blur(70%) ;
+ 
+  filter: blur(70%);
   left: 50%;
   top: -5%;
   transform: translate(-50%, 0);
@@ -29,6 +29,9 @@ height: 4em;
 padding: 2em;
 
 }
+#heads{
+  color: #FFD900;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -37,7 +40,8 @@ code {
 header .heading{
   text-align: center;
   font-size: 2em;
-  background: #FFD900;
+  background: #ffd90000;
+  color: #FFD900;
   padding: .1em;
   padding-left: 2em;
   padding-right: 2em;
@@ -51,16 +55,14 @@ header ::after{
 }
 
 .content{
+  z-index: 1;
   position: absolute;
   top: 40%;
   left: 50%;
   height: 100%;
   width: 100vh;
 }
-#heads{
-  color: #FFD900;
 
-}
 #accncont{
   z-index: 1;
   position: absolute;
