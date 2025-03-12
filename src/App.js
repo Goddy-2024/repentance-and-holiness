@@ -1,39 +1,86 @@
+import { useEffect, useState } from "react";
+import "./index.css";
 import "./App.css";
 
-const Header = () => (
-  <header>
-    <img src="repentlogo.png" alt="repentance and holiness" />
-    <br />
-    <span className="heading">
-      <strong>ONGATA RONGAI MAIN ALTAR</strong>
-    </span>
-  </header>
-);
+const Header = ({ resetView }) => {
+  const handleLogoClick = (e) => {
+    e.target.classList.add("spin");
+    setTimeout(() => e.target.classList.remove("spin"), 1000);
+    resetView();
+  };
 
-const DisplayAcc = () => {
-  alert("Account clicked!");
+  return (
+    <header id="main-header">
+      <img
+        src="repentlogo.png"
+        alt="Repentance and Holiness"
+        onClick={handleLogoClick}
+      />
+      <br />
+      <span className="heading">
+        <strong>ONGATA RONGAI MAIN ALTAR</strong>
+      </span>
+    </header>
+  );
 };
 
-const Content = () => {
+const DisplayAcc = (account, setActiveAccount) => {
+  setActiveAccount(account);
+};
+
+const Content = ({ setActiveAccount }) => {
   const accounts = ["ACCOUNT 1", "ACCOUNT 2", "ACCOUNT 3", "ACCOUNT 4"];
   const contacts = ["CONTACT 1", "CONTACT 2", "CONTACT 3", "CONTACT 4"];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const account1 = document.getElementById("account-1");
+      const header = document.getElementById("main-header");
+      const caption = document.querySelector("caption");
+      const thead = document.querySelector("thead");
+
+      if (account1) {
+        const rect = account1.getBoundingClientRect();
+        if (rect.top <= header.offsetHeight + caption.offsetHeight) {
+          header.classList.add("blurred");
+          caption.classList.add("blurred");
+          thead.classList.add("blurred");
+        } else {
+          header.classList.remove("blurred");
+          caption.classList.remove("blurred");
+          thead.classList.remove("blurred");
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <section className="content">
       <table id="accncont">
+        <caption>
+          <h2>ACCOUNTS & CONTACTS</h2>
+        </caption>
+
         <thead>
-          <tr id="heads">
-            <th className="heads" onClick={DisplayAcc}>
-              ACCOUNTS
-            </th>
+          <tr>
+            <th className="heads">ACCOUNTS</th>
             <th>CONTACTS</th>
           </tr>
         </thead>
+
         <tbody>
           {accounts.map((acc, index) => (
             <tr key={index}>
               <td>
-                <span onClick={DisplayAcc}>{acc}</span>
+                <span
+                  id={index === 0 ? "account-1" : ""}
+                  onClick={() => DisplayAcc(acc, setActiveAccount)}
+                >
+                  {acc}
+                </span>
               </td>
               <td>
                 <span>{contacts[index]}</span>
@@ -46,11 +93,27 @@ const Content = () => {
   );
 };
 
+const AccountDetails = ({ account, resetView }) => (
+  <div className="account-details">
+    <h2>{account}</h2>
+    <p>Details for {account} will be displayed here.</p>
+    <button onClick={resetView}>Go Back</button>
+  </div>
+);
+
 function App() {
+  const [activeAccount, setActiveAccount] = useState(null);
+
+  const resetView = () => setActiveAccount(null);
+
   return (
-    <div>
-      <Header />
-      <Content />
+    <div className="App">
+      <Header resetView={resetView} />
+      {activeAccount ? (
+        <AccountDetails account={activeAccount} resetView={resetView} />
+      ) : (
+        <Content setActiveAccount={setActiveAccount} />
+      )}
     </div>
   );
 }

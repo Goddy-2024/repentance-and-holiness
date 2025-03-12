@@ -1,86 +1,136 @@
+/* Global Styles */
 body {
   margin: 0;
-  background-image: url('bg.jpeg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+  background: url('bg.jpeg') no-repeat fixed center/cover;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-header{
+
+/* Fixed Header */
+header {
+  position: fixed;
+  top: -5%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
   text-align: center;
   padding: 2em;
-  width: 100%;
-  position: fixed;
- 
-  filter: blur(70%);
-  left: 50%;
-  top: -5%;
-  transform: translate(-50%, 0);
-  z-index: 2;
-}
-header img{
-width: 4em;
-border-radius: 50%;
-height: 4em;
-padding: 2em;
-
-}
-#heads{
-  color: #FFD900;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-header .heading{
-  text-align: center;
   font-size: 2em;
-  background: #ffd90000;
   color: #FFD900;
-  padding: .1em;
-  padding-left: 2em;
-  padding-right: 2em;
-  border-radius: 1em;
-  margin-top: 5em;
-  
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-header ::after{
-  box-shadow: 0 0 1em 0 rgba(237, 237, 237, 0.452);
+  z-index: 2;
+  filter: blur(0);
+  transition: backdrop-filter 0.3s ease, background 0.5s ease, filter 0.3s ease;
 }
 
-.content{
-  z-index: 1;
+/* Header Blur Effect */
+.blurred {
+  backdrop-filter: blur(1px);
+  background: rgba(255, 255, 255, 0);
+  filter: blur(0);
+}
+
+/* Logo inside Header */
+header img {
+  width: 2em;
+  height: 2em;
+  padding: 2em;
+  border-radius: 50%;
+  animation: spin-on-load 1s ease-in-out;
+  cursor: pointer;
+  
+  
+  
+}
+header img.spin {
+  animation: spin-on-load 1s ease-in-out;
+}
+@keyframes spin-on-load {
+  from {
+    transform: rotateZ(0deg);
+    transform: rotateY(0deg);
+
+  }
+  to {
+    transform: rotateZ(360deg);
+    transform: rotateY(360deg);
+  }
+}
+
+/* Sticky Table Caption */
+caption {
+  position: sticky;
+  top: 10em;
+  background: rgba(255, 255, 255, 0);
+  padding: 1em;
+  font-size: 1em;
+  font-weight: bold;
+  color: #FFD900;
+  z-index: 999;
+  transition: backdrop-filter 0.3s ease, background 0.3s ease, filter 0.3s ease;
+}
+
+/* Sticky Table Header */
+thead {
+  position: sticky;
+  top: 15em;
+  background: rgba(255, 255, 255, 0.258);
+  z-index: 998;
+  transition: backdrop-filter 0.3s ease, background 0.3s ease, filter 0.3s ease;
+}
+
+/* Table Headers Blur Effect */
+thead.blurred,
+caption.blurred {
+  background: rgba(255, 255, 255, 0.3);
+  filter: blur(0px);
+}
+
+/* Table Header Cells */
+th {
+  background: #f8f8f815;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+}
+
+/* Table Text Color */
+#heads {
+  color: #FFD900;
+}
+
+/* Content Positioning */
+.content {
   position: absolute;
   top: 40%;
   left: 50%;
-  height: 100%;
   width: 100vh;
+  height: 100%;
+  z-index: 1;
 }
 
-#accncont{
-  z-index: 1;
+/* Table Container */
+#accncont {
   position: absolute;
-  transform: translateX(-50%);
   width: 100%;
   height: 100%;
   text-align: center;
+  transform: translateX(-50%);
+  z-index: 1;
+}
 
-}
-#accncont td{
+/* Table Cell Styles */
+#accncont td {
   color: white;
   text-align: center;
- 
 }
-#accncont td span{
-  color: white;
-  text-align: center;
+
+/* Table Cell Span Styles */
+#accncont td span {
   background: #00026B;
+  color: white;
   padding: 2em;
   border-radius: 1em;
+  text-align: center;
 }
